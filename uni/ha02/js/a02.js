@@ -21,6 +21,8 @@ function getArrayElements(number, startIndex) {
   return result;
 }
 
+
+// fehler
 function deleteArrayElements(number, startIndex, everyIth) {
   let arrayCopy = [...array];
   let removedItems = [];

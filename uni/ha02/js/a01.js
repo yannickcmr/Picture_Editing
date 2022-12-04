@@ -1,5 +1,4 @@
 function multiply(number1, number2) {
-  console.log(arguments);
   if (arguments.length == 1 ){
     number2 = 1
   };
