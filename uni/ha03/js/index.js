@@ -19,34 +19,28 @@ function duplicateObject(matrikel, students){
   return  {"matrikelnummer": matrikel, "students": students.filter(s => matrikel == s.matrikelnummer)}
 }
 
-function boolDuplicates(student, students){
-  return (students.filter(c => c.matrikelnummer == student.matrikelnummer).length > 1)
+function countDubs(student, students){
+  if (students.filter(m => student == m.matrikelnummer).length > 1){
+    //console.log(student, students.filter(m => student == m.matrikelnummer));
+    return duplicateObject(student, students);
+  }
 }
 
 // Aufgabe 3.1.3
 function duplicateStudents(students) {
-  var result = students.reduce((acc, s) => {
-      if (boolDuplicates(s, students)) {
-        let cache = duplicateObject(s.matrikelnummer, students);
-          return [...acc, cache]
-      } else {
-        return acc
-      }
-      }, []);
-      console.log(order(result, 2))
-      return result
+  return (students.filter(m =>  students.filter(s => s.matrikelnummer == m.matrikelnummer).length > 1)).map(s => duplicateObject(s.matrikelnummer, students))
+}
+
+function gradesDubs(grade, grades){
+  return grades.filter(m => (m.matrikelnummer == grade.matrikelnummer) && (m.course == grade.course));
+}
+
+function gradesMap(grade, grades){
+  return {"matrikelnummer": grade.matrikelnummer, "grades": grades.filter(g => (g.matrikelnummer == grade.matrikelnummer) && (g.course == grade.course))}
 }
 
 // Aufgabe 3.1.4
 function invalidGrades(grades) {
-  return grades
-    .map((s) => {
-      // TODO: implement me
-
-      return {
-        matrikelnummer: -1 /* TODO: replace */,
-        grades: [] /* TODO: replace */,
-      };
-    })
-    .filter((e) => e.grades.length > 0)
+  console.log("-->", grades.filter(g => gradesDubs(g, grades).length > 1).map(g => gradesMap(g, grades)));
+  return grades.filter(g => gradesDubs(g, grades).length > 1).map(g => gradesMap(g, grades))
 }
